@@ -12,17 +12,17 @@ class SiriProxy::Plugin::Jailbreak < SiriProxy::Plugin
 
 	def get_jailbrake(device, version, ios)
 		url = "http://www.letsunlockiphone.com/jailbreak.php?device=#{device}&version=#{version}&ios=#{ios}"
-		page = HTTParty.get(uri).body
+		#page = HTTParty.get(uri).body
 
 		#parse and return content here
 
 		#if page is in json format
-		results = JSON.parse(page)
+		#results = JSON.parse(page)
 
 		#some logic here
 
 		#and return
-		results
+		url
 	end
 
 	listen_for /give me jailbreak(?: for)? (iphone|ipad|ipod) ([a-z0-9]*) with ios ([a-z0-9.]*)/i do |device, version, ios|
@@ -48,8 +48,16 @@ class SiriProxy::Plugin::Jailbreak < SiriProxy::Plugin
     		set_state nil
 
 	    	results = get_jailbrake(device, version, ios)
+	    	
+	    	object = SiriAddViews.new		
+		object.make_root(last_ref_id)
+		cmd = SiriSendCommands.new(results)
+		object.views << SiriButton.new("click here to open", [cmd])
+		say "This is a button"
+		send_object object
+		
 		#say something
-		say results
+		#say results
     	
     		request_completed
   	end
