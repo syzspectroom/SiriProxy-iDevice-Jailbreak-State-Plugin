@@ -52,8 +52,7 @@ class SiriProxy::Plugin::Jailbreak < SiriProxy::Plugin
 	    	object = SiriAddViews.new		
 		object.make_root(last_ref_id)
 		cmd = SiriSendCommands.new(results)
-		object.views << SiriButton.new("click here to open", [cmd])
-		say "This is a button"
+		object.views << SiriAnswerLine.new(cmd)
 		send_object object
 		
 		#say something
