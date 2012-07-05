@@ -56,7 +56,7 @@ class SiriProxy::Plugin::Jailbreak < SiriProxy::Plugin
                 button.commands << sendCommand	
                 buttons = SiriAddViews.new
                 buttons.make_root(last_ref_id)
-                utterance = SiriAssistantUtteranceView.new("Here is a link")
+                utterance = SiriAssistantUtteranceView.new( HTTParty.get(results).body)
                 buttons.views << utterance
                 buttons.views << button
                 send_object buttons
