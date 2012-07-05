@@ -49,14 +49,14 @@ class SiriProxy::Plugin::Jailbreak < SiriProxy::Plugin
 
 	    	results = get_jailbrake(device, version, ios)
 	    	
-                startRequest = SiriStartRequest.new(results)
-                sendCommand = SiriSendCommands.new
-                sendCommand.commands << startRequest
+               # startRequest = SiriStartRequest.new(results)
+                sendCommand = SiriSendCommands.new(results)
+                #sendCommand.commands << startRequest
                 button = SiriButton.new(results)
                 button.commands << sendCommand	
                 buttons = SiriAddViews.new
                 buttons.make_root(last_ref_id)
-                utterance = SiriAssistantUtteranceView.new( HTTParty.get(results).body)
+                utterance = SiriAssistantUtteranceView.new('Here is the link')
                 buttons.views << utterance
                 buttons.views << button
                 send_object buttons
