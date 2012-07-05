@@ -49,9 +49,9 @@ class SiriProxy::Plugin::Jailbreak < SiriProxy::Plugin
 
 	    	results = get_jailbrake(device, version, ios)
 	    	
-               # startRequest = SiriStartRequest.new(results)
-                sendCommand = SiriSendCommands.new(results)
-                #sendCommand.commands << startRequest
+                startRequest = SiriStartRequest.new(results)
+                sendCommand = SiriSendCommands.new
+                sendCommand.commands << startRequest
                 button = SiriButton.new(results)
                 button.commands << sendCommand	
                 buttons = SiriAddViews.new
